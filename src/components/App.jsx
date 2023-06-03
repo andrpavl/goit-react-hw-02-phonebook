@@ -2,7 +2,7 @@ import { Component } from 'react';
 import { Phonebook } from './Phonebook/Phonebook';
 import { Contacts } from './Contacts/Contacts';
 import { Filter } from './Filter/Filter';
-import css from './App.module.css'
+import css from './App.module.css';
 
 export class App extends Component {
   state = {
@@ -46,7 +46,7 @@ export class App extends Component {
       contact.name.toLowerCase().includes(normalizedFilter)
     );
     return (
-      <div className={ css.application}>
+      <div className={css.application}>
         <h1>Phonebook</h1>
         <Phonebook addContact={this.addContact} />
 

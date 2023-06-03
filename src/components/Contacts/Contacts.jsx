@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import css from './Contacts.module.css'
+import css from './Contacts.module.css';
 
 export class Contacts extends Component {
   onDeleteContact = name => this.props.deleteContact(name);
@@ -11,7 +11,10 @@ export class Contacts extends Component {
         {contacts.map(contact => (
           <li key={contact.name}>
             {contact.name}: {contact.number}
-            <button className={css.deleteBtn} onClick={() => this.onDeleteContact(contact.name)}>
+            <button
+              className={css.deleteBtn}
+              onClick={() => this.onDeleteContact(contact.name)}
+            >
               Delete
             </button>
           </li>
