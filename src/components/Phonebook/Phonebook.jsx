@@ -1,8 +1,12 @@
 import { Component } from 'react';
+import { nanoid } from 'nanoid';
+import PropTypes from 'prop-types';
+import css from './Phonebook.module.css';
 
 export class Phonebook extends Component {
   state = {
     name: '',
+    number: '',
   };
 
   handleChange = e => {
@@ -12,17 +16,23 @@ export class Phonebook extends Component {
   handleSubmit = e => {
     e.preventDefault();
     const { name } = this.state;
-    this.props.addContact(name);
-    this.setState({ name: '' });
+    const { number } = this.state;
+    this.props.addContact(name, number);
+    this.setState({ name: '', number: '' });
   };
 
   render() {
-    const {name} = this.state;
+    const { name, number } = this.state;
+    const nameId = nanoid();
+    const telId = nanoid();
+
     return (
-      <form onSubmit={this.handleSubmit}>
-        <label>
+      <form onSubmit={this.handleSubmit} className={css.form}>
+        <label htmlFor={nameId} className={css.label}>
           Name
-          <input
+                <input
+                    placeholder='Enter name'
+            className={css.input}
             value={name}
             onChange={this.handleChange}
             type="text"
@@ -32,9 +42,28 @@ export class Phonebook extends Component {
             required
           />
         </label>
+        <label htmlFor={telId} className={css.label}>
+          Phone
+                <input
+                    placeholder='Enter phone number'
+            className={css.input}
+            onChange={this.handleChange}
+            value={number}
+            type="tel"
+            name="number"
+            pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+            title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+            required
+          />
+        </label>
 
-        <button type="submit">Add contact</button>
+        <button className={css.btnAdd} type="submit">
+          Add contact
+        </button>
       </form>
     );
   }
 }
+Phonebook.propTypes = {
+  addContact: PropTypes.func.isRequired,
+};
